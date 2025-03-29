@@ -1,0 +1,19 @@
+[project]
+name = "cosmology_uphi"
+version = "0.0.1"
+authors = [
+  { name="Hongfei Yu", email="uphi.ustc@gmail.com" },
+]
+description = "An archive of codes for cosmology."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE*"]
+
+[project.urls]
+Homepage = "https://github.com/Phiyu/cosmology"
+Issues = "https://github.com/Phiyu/cosmology/issues"
