@@ -3,16 +3,54 @@
 📖 This is an archive for some functions to process cosmology problems.
 
 ## Structure
+```
+cosmology_uphi/
+├── __pycache__/
+├── data/
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── binned_correction.py
+│   ├── gaussian_field.py
+│   ├── sigma8.py
+├── fast_plot/
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── fplt.py
+├── growth/
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── linear_growth_factor.py
+├── power_spectrum/
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── estimator.py
+├── __init__.py
+```
 
 ## Functions
+Suppose we load the package as `import cosmology_uphi as cu`
 ### data
+- `cu.P_bc(L, N, dataset) -> function(x)`
+- `cu.gf(L, N, dataset, seed = 64) -> np.shape(N, N, N//2+1)`
+- `cu.calculate_sigma(dataset, R = 8) -> float`
+  #### parametters:
+  - `L, N`: _float, int_ || length and numbers for the simulation cube
+  - `dataset`: np.ndarray || data of $k$ and $P(k)$ (for example, generated from CAMB and import as `np.loadtxt(''file_name.dat')`)
+  - `seed`: _int_ || random seed
+  - `R`: _float_ || radius, usually $R=8$ when we calculate $\sigma_8$
 
 ### growth
-- `growth.D(z, m0, Lambda0, r0) -> z.shape()` 
-  Calculate the linear growth factor $D(z)$ with cosmological parameters $\Omega_{m,0},\Omega_{\Lambda,0},\Omega_{r,0} $, where $m,\Lambda, r$ refer to matter, cosmological constant (dark energy)  and radiation. Especially, if  $\Omega_{m,0}+\Omega_{\Lambda,0}+\Omega_{r,0} \neq1$, it will calculate the curvature $\Omega_{k,0}$ which growths as $(1+z)^2$.
+- `cu.D(z, m0, Lambda0, r0) -> z.shape()` 
+
   #### parameters:
   - `z`: _ArrayLike_  || redshift
-  - `m0, Lambda0, r0`" _float_ || $\Omega_{m,0},\Omega_{\Lambda,0},\Omega_{r,0} $
+  - `m0, Lambda0, r0`" _float_ || $\Omega_{m,0},\Omega_{\Lambda,0},\Omega_{r,0} $ 
+  
+ Calculate the linear growth factor $D(z)$ with cosmological parameters $\Omega_{m,0},\Omega_{\Lambda,0},\Omega_{r,0} $, where $m,\Lambda, r$ refer to matter, cosmological constant (dark energy)  and radiation. Especially, if  $\Omega_{m,0}+\Omega_{\Lambda,0}+\Omega_{r,0} \neq1$, it will calculate the curvature $\Omega_{k,0}$ which growths as $(1+z)^2$.
 
 
 ### power_spectrum
+- `cu.estimator(L, N, ff) -> np.ndarray`
+  #### parametters:
+  - `L, N`: _float, int_ || length and numbers for the simulation cube
+  - `ff`: _np.ndarray_ || field in Fourier space
