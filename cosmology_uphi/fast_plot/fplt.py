@@ -12,8 +12,8 @@ def fplt(x, y, color, label, title, xlabel, ylabel, xstyle = "normal", ystyle = 
     # Set axes
     ax = fig.add_subplot()
     if np.ndim(x) == 2:
-        for x0, y0, color, label in enumerate(x), enumerate(y), enumerate(color), enumerate(label):
-            ax.plot(x0, y0, color,label)
+        for i in range(len(x)):
+            ax.plot(x[i], y[i], color[i], label[i])
     elif np.ndim(x) == 1:
         ax.plot(x, y, color,label)
 
@@ -46,4 +46,4 @@ def fplt(x, y, color, label, title, xlabel, ylabel, xstyle = "normal", ystyle = 
     plt.grid(which="major", alpha=0.3)
     plt.grid(which="minor", alpha=0.1)
 
-    plt.savefig(title.png)
+    plt.savefig(title)
