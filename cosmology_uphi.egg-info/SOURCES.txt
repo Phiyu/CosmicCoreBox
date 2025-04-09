@@ -16,6 +16,5 @@ cosmology_uphi/growth/__init__.py
 cosmology_uphi/growth/linear_growth_factor.py
 cosmology_uphi/power_spectrum/__init__.py
 cosmology_uphi/power_spectrum/estimator.py
-test/test1.py
 test/test2.py
 test/test3.py

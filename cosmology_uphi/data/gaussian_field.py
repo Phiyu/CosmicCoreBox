@@ -22,7 +22,11 @@ def norm(L, N, dataset, delta_k: np.ndarray):
     b[b >= N//2+1] -= N
     c = np.arange(N//2 + 1)
 
-    k_mod = kF * hypot(a[:, None, None], b[None, :, None], c[None, None, :])
+    A = a[:, None, None]
+    B = b[None, :, None]
+    C = c[None, None, :]
+
+    k_mod = kF * np.sqrt(A**2 + B**2 + C**2)
 
     scale = np.sqrt(PL_fit(k_mod, dataset) * n / V)
 

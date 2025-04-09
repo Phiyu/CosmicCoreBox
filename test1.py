@@ -10,11 +10,10 @@ if __name__ == "__main__":
     L = 1e3
     N = 128
 
-    print(cu.sigma8.calculate_sigma(data))
+    print(cu.calculate_sigma(data))
     
     gf = cu.gf(L, N, data)
-    print(gf.shape())
 
     kF = 2* np.pi/L
     k_grid = np.arange(kF, N*kF/2+kF/10, kF)
-    cu.fplt(k_grid, cu.bc(L, N, data), "red", "binned correction", "log", "log")
+    cu.fplt(cu.estimator(L, N, gf)[0], cu.estimator(L, N, gf)[1], "red", "binned correction", "Power Spectrum", "k", "P(k)", "log", "log")

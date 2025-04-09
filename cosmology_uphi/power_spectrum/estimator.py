@@ -1,4 +1,5 @@
 import numpy as np
+from math import hypot
 
 def estimator(L, N, ff: np.ndarray):
     # assert ff.shape == (N,N,N//2+1)

@@ -50,7 +50,12 @@ Suppose we load the package as `import cosmology_uphi as cu`
 
 
 ### power_spectrum
-- `cu.estimator(L, N, ff) -> np.ndarray`
+- `cu.estimator(L, N, ff) -> [np.ndarray, np.ndarray, np.ndarray]`
   #### parametters:
   - `L, N`: _float, int_ || length and numbers for the simulation cube
   - `ff`: _np.ndarray_ || field in Fourier space
+
+  #### return:
+  - `cu.estimator(L, N, ff)[0]`: k_vals
+  - `cu.estimator(L, N, ff)[1]`: $ P(k)$ 
+  - `cu.estimator(L, N, ff)[2]`: number of modes in each bin
