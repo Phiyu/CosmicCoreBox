@@ -18,3 +18,4 @@ cosmology_uphi/power_spectrum/__init__.py
 cosmology_uphi/power_spectrum/estimator.py
 test/test1.py
 test/test2.py
+test/test3.py

@@ -1,7 +1,7 @@
 import numpy as np
 
 def estimator(L, N, ff: np.ndarray):
-    assert ff.shape == (N,N,N//2+1)
+    # assert ff.shape == (N,N,N//2+1)
     # ff is a Fourier mode, array.shape = (N, N, N/2+1)
     
     kF = 2*np.pi/L
@@ -20,14 +20,15 @@ def estimator(L, N, ff: np.ndarray):
         a = i
         if i >= N//2+1:
             a -= N
-        a = i*i
         for j in range(y):
             b = j
             if j >= N//2+1:
                 b -= N
-            b = j*j
             for l in range(z):
-                k_mod = kF*np.sqrt(a+b+l*l)
+                c = l
+                if l >= N//2+1:
+                    c -= N
+                k_mod = kF * hypot(a, b, c) 
                 idx = int(k_mod//kF) -1
                 if idx <= s-1:
                     count[idx] += 1
