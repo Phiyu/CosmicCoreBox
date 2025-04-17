@@ -10,9 +10,12 @@ if __name__ == "__main__":
     L = 1e3
     N = 128
 
-    print(cu.calculate_sigma(data))
+    pm = cu.pm_data(data, L, N)
+    print(len(pm.k_vals), len(pm.pm))
+
+    print(pm.calculate_sigma())
     
-    gf = cu.gf(L, N, data)
+    gf = pm.generate_filed()
 
     kF = 2* np.pi/L
     k_grid = np.arange(kF, N*kF/2+kF/10, kF)
