@@ -3,13 +3,9 @@ from scipy.interpolate import CubicSpline
 from scipy.integrate import cumulative_trapezoid
 
 class pm_data:
-    def __init__(self, dataset, L, N):
+    def __init__(self, dataset):
         self.k_vals = dataset[:,0]
         self.pm = dataset[:,1]
-        self.L = L
-        self.N = N
-        self.n = N*N*N # total number of bins
-        self.V = L*L*L # volume
 
     def PL_fit(self, x):
         P = CubicSpline(self.k_vals, self.pm)
@@ -30,17 +26,6 @@ class pm_data:
 
         return sum/count
 
-    def generate_filed(self, seed = 64):
-        N = self.N
-        L = self.L
-
-        np.random.seed(seed)
-        grf = np.random.normal(0, 1, size = (N,N,N))
-        grf_fft = np.fft.rfftn(grf)
-
-        grf_fft_norm = norm(self, grf_fft)
-
-        return grf_fft_norm
 
     def calculate_sigma(self, R = 8):
         k = self.k_vals
@@ -49,10 +34,22 @@ class pm_data:
         integral = Delta2 * W_FT(k, R) *W_FT(k, R) / k
         res = cumulative_trapezoid(integral, k)[-1] # return the last result of the integral
         return np.sqrt(res)
-    
-def norm(data: pm_data, delta_k: np.ndarray):
-    N = data.N
-    kF = 2 * np.pi / data.L
+
+
+    def generate_filed(self, L, N, seed = 64):
+        np.random.seed(seed)
+        grf = np.random.normal(0, 1, size = (N,N,N))
+        grf_fft = np.fft.rfftn(grf)
+
+        grf_fft_norm = norm(self, L, N, grf_fft)
+
+        from .field import field
+        return field(L, N, grf_fft_norm)
+
+def norm(data: pm_data, L, N, delta_k: np.ndarray):
+    kF = 2 * np.pi / L
+    n = N*N*N
+    V = L*L*L
 
     # coordinates in Fourier space
     a = np.arange(N)
@@ -67,7 +64,7 @@ def norm(data: pm_data, delta_k: np.ndarray):
 
     k_mod = kF * np.sqrt(A**2 + B**2 + C**2)
 
-    scale = np.sqrt(data.PL_fit(k_mod) * data.n / data.V)
+    scale = np.sqrt(data.PL_fit(k_mod) * n / V)
 
     delta_k *= scale
     
