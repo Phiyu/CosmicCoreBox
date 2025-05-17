@@ -2,10 +2,12 @@ import numpy as np
 from math import hypot
 
 class field:
-    def __init__(self, L, N, fourier_field_array):
+    def __init__(self, L, N, fourier_field_array = None):
         self.L = L
         self.N = N
         self.kF = 2*np.pi/L # fundamental k
+        self.h = L/N 
+        self.kN = np.pi/(L/N) # Nyquist Frequency
         self.n = N*N*N # total number of bins
         self.V = L*L*L # volume of the box (field)
         self.ff = fourier_field_array
@@ -18,7 +20,7 @@ class field:
 
         s = int(k_grid.shape[0])
 
-        x, y, z = self.ff.shape
+        x, y, z = self.ff.shape # type: ignore
         for i in range(x):
             a = i
             if i >= self.N//2+1:
@@ -35,11 +37,11 @@ class field:
                     idx = int(k_mod//self.kF) -1
                     if idx <= s-1:
                         count[idx] += 1
-                        sum[idx] += abs(self.ff[i][j][l])**2
+                        sum[idx] += abs(self.ff[i][j][l])**2 # type: ignore
                     
         P = sum*self.V/self.n/self.n/count
 
-        return [k_grid, P, count]
+        return [k_grid, P]
     
     from .pm_data import pm_data
     def BinnedCorrection(self, pm: pm_data):

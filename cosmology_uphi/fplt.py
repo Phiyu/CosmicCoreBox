@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def fplt(x, y, color, label, title, xlabel, ylabel, xstyle = "normal", ystyle = "normal"):
+def fplt(x, y, col, lab, title, xlabel, ylabel, xstyle = "normal", ystyle = "normal"):
     # Updating parameters, creat figure
     plt.rcParams.update({
         "font.size": 16, "axes.linewidth": 2,
@@ -11,11 +11,13 @@ def fplt(x, y, color, label, title, xlabel, ylabel, xstyle = "normal", ystyle = 
 
     # Set axes
     ax = fig.add_subplot()
-    if np.ndim(x) == 2:
+    if np.ndim(x) >= 2:
         for i in range(len(x)):
-            ax.plot(x[i], y[i], color[i], label[i])
+            ax.plot(x[i], y[i], color = col[i], label = lab[i], lw = 1.5)
+            ax.scatter(x[i], y[i], color='black',  s = 10, marker = 's')
     elif np.ndim(x) == 1:
-        ax.plot(x, y, color,label)
+        ax.plot(x, y, color = col, label = lab, lw = 1.5)
+        ax.scatter(x, y, color='black', s = 10, marker = 's')
 
 
     # Tick parameters
@@ -33,14 +35,12 @@ def fplt(x, y, color, label, title, xlabel, ylabel, xstyle = "normal", ystyle = 
     elif ystyle != "normal":
         raise ValueError("y-style is illegal.")
     
-    ax.set_ylabel(ylabel)
-    ax.set_xlabel(xlabel)
-    ax.set_title(title, y=1.01)
-    plt.legend(loc = 'upper right')
+    ax.set_ylabel(ylabel, family = 'serif')
+    ax.set_xlabel(xlabel, family = 'serif')
+    ax.set_title(title, y=1.01, family = 'serif')
+    # plt.legend(loc = 'upper right')
     plt.tight_layout()
-
     plt.grid(True)
-    plt.legend()
     plt.tick_params(axis="both", direction="in", length=8, width=1.5)
     plt.tick_params(which="minor", direction="in", length=3, width=1)
     plt.grid(which="major", alpha=0.3)

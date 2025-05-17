@@ -19,4 +19,4 @@ if __name__ == "__main__":
 
     kF = 2* np.pi/L
     k_grid = np.arange(kF, N*kF/2+kF/10, kF)
-    cu.fplt(gf.estimator()[0], gf.estimator()[1], "red", "binned correction", "Power Spectrum", "k", "P(k)", "log", "log")
+    cu.fplt(gf.estimator()[0], gf.estimator()[1], "red", "binned correction", "Power Spectrum ", r'Wave Number $k\,\mathrm{h/Mpc}$', r'Power Spectrum $P(k) \, \mathrm{(Mpc/h)}^3$', "log", "log")
