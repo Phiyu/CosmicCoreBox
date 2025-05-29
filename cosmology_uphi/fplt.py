@@ -38,7 +38,7 @@ def fplt(x, y, col, lab, title, xlabel, ylabel, xstyle = "normal", ystyle = "nor
     ax.set_ylabel(ylabel, family = 'serif')
     ax.set_xlabel(xlabel, family = 'serif')
     ax.set_title(title, y=1.01, family = 'serif')
-    # plt.legend(loc = 'upper right')
+    plt.legend(prop={'family' : 'Times New Roman', 'size'   : 10})
     plt.tight_layout()
     plt.grid(True)
     plt.tick_params(axis="both", direction="in", length=8, width=1.5)
