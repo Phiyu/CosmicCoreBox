@@ -43,8 +43,8 @@ class field:
 
         return [k_grid, P]
     
-    from .ps_data import ps_data
-    def BinnedCorrection(self, pm: ps_data):
+    from .pm_data import pm_data
+    def BinnedCorrection(self, pm: pm_data):
         kF = 2*np.pi/self.L
 
         k_grid = np.arange(kF, self.N*kF/2+kF/10, kF) # k value
@@ -59,5 +59,5 @@ class field:
 
         dataset = [pm.k_vals, sum/count]
 
-        from .ps_data import ps_data
-        return ps_data(dataset)
+        from .pm_data import pm_data
+        return pm_data(dataset)
