@@ -10,26 +10,28 @@ class particles(field):
         self.x = position / self.h # dimensionless
         self.v = velocity 
         self.np = position.shape[0]
+
     
     def DFT(self):
-        k_vals = np.fft.fftfreq(self.N, self.h) * 2 * np.pi
-        kx, ky, kz = np.meshgrid(k_vals, k_vals, k_vals, indexing='ij')
-        k = np.stack([kx, ky, kz], axis=-1).reshape(-1, 3) 
+        L = self.L
+        N = self.N
+        x = self.x * self.h 
+        V = self.V
+        Np = self.np
 
-        delta_k = np.zeros(k.shape[0], dtype=np.complex128)
-
-        n = self.np / self.V
-        kF = 2 * np.pi / self.L
-
-        for idx, kvec in tqdm(enumerate(k)):
-            phase = np.dot(self.x * self.h, kvec)
-            delta_k[idx] =  np.sum(np.exp(-1j * phase)) / n / (self.h**3) # delta(k) -> delta(nk)
-        delta_k_grid = delta_k.reshape(self.N, self.N, self.N)
-        # delta_k_grid[0,0,0] -= 1/(kF**3)
+        kF = 2.0 * np.pi / L
+        k_indices = np.fft.fftfreq(N, L/N) * 2 * np.pi
         
-        # delta_k = dft_core(self.x, k, self.h, self.V, self.L, self.np)
-        # delta_k_grid = delta_k.reshape(self.N, self.N, self.N)
+        kx, ky, kz = np.meshgrid(k_indices, k_indices, k_indices, indexing='ij')
+        delta_k_grid = np.zeros((N, N, N), dtype=np.complex128)
 
+        for p in tqdm(range(Np)):
+            k_dot_x = (kx * x[p, 0] + ky * x[p, 1] + kz * x[p, 2])
+            delta_k_grid += np.exp(-1j * k_dot_x) * V / Np
+        
+        delta_k_grid[0,0,0] -= kF**3
+        delta_k_grid *=  (N**3) / V
+        
         return field(self.L, self.N, delta_k_grid)
     
     def NGP(self, deconvolution = True, interlacing = True):
