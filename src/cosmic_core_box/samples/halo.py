@@ -88,7 +88,7 @@ class GalaxySample:
         add = func(self)
         for k, v in add.items():
             assert len(v) == self.n_objs, f"Size of {k} != {self.n_objs}"
-            setattr(self, k, v)
+            self.data[k] = v
     
     @classmethod
     def from_file(cls, path: Path | str, **init_kw):

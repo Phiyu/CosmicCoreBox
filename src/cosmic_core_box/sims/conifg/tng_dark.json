@@ -1,0 +1,53 @@
+{
+"name": "TNG100-1-Dark",
+"description": "The highest-resolution dark matter only simulation of the TNG100 suite. All data conforms to the TNG public data release specifications.",
+"simulation": {
+    "box_size_mpc_h": 75.0,
+    "particle_count_total": 6028568000,
+    "particle_mass_msun_h": 5999688.827
+},
+"cosmology": {
+    "omega_m": 0.3089,
+    "omega_lambda": 0.6911,
+    "omega_b": 0.0486,
+    "h": 0.6774,
+    "sigma_8": 0.8159,
+    "n_s": 0.9667
+},
+"data_products": {
+    "full_snapshots": [
+    {"snapshot_number": 99, "redshift": 0.0, "scale_factor": 1.0},
+    {"snapshot_number": 91, "redshift": 0.1, "scale_factor": 0.9091},
+    {"snapshot_number": 84, "redshift": 0.2, "scale_factor": 0.8333},
+    {"snapshot_number": 78, "redshift": 0.3, "scale_factor": 0.7692},
+    {"snapshot_number": 72, "redshift": 0.4, "scale_factor": 0.7143},
+    {"snapshot_number": 67, "redshift": 0.5, "scale_factor": 0.6667},
+    {"snapshot_number": 59, "redshift": 0.7, "scale_factor": 0.5882},
+    {"snapshot_number": 50, "redshift": 1.0, "scale_factor": 0.5},
+    {"snapshot_number": 40, "redshift": 1.5, "scale_factor": 0.4},
+    {"snapshot_number": 33, "redshift": 2.0, "scale_factor": 0.3333},
+    {"snapshot_number": 25, "redshift": 3.0, "scale_factor": 0.25},
+    {"snapshot_number": 21, "redshift": 4.0, "scale_factor": 0.2},
+    {"snapshot_number": 17, "redshift": 5.0, "scale_factor": 0.1667},
+    {"snapshot_number": 13, "redshift": 6.0, "scale_factor": 0.1429},
+    {"snapshot_number": 11, "redshift": 7.0, "scale_factor": 0.125},
+    {"snapshot_number": 8, "redshift": 8.0, "scale_factor": 0.1111},
+    {"snapshot_number": 6, "redshift": 9.0, "scale_factor": 0.1},
+    {"snapshot_number": 4, "redshift": 10.0, "scale_factor": 0.0909},
+    {"snapshot_number": 3, "redshift": 11.0, "scale_factor": 0.0833},
+    {"snapshot_number": 2, "redshift": 12.0, "scale_factor": 0.0769}
+    ]
+    },
+    "file_system": {
+    "base_path_placeholder": "/path/to/TNG100-1-Dark/",
+    "sublink_tree_path": "postprocessing/trees/SubLink/",
+    "lhalotree_tree_path": "postprocessing/trees/LHaloTree/",
+    "snapshot_path_template": "output/snapdir_{snap_num:03d}/",
+    "groupcat_path_template": "output/groups_{snap_num:03d}/"
+    },
+    "units": {
+    "length": "ckpc/h",
+    "mass": "1e10 Msun/h",
+    "velocity": "km/s (peculiar)"
+    }
+}
