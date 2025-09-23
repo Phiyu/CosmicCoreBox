@@ -5,12 +5,12 @@ from pathlib import Path
 import h5py
 
 
-class GalaxySample:
+class HaloSample:
     
     repr_attr_keys = ('n_objs',)
     
     '''
-    A simple galaxy sample.
+    A simple halo sample.
     
     @data: attributes of the galaxies, e.g. {'ra': ..., 'dec': ...}.
     @verbose: whether to print log messages.
@@ -25,11 +25,11 @@ class GalaxySample:
         
         super().__init__(verbose=verbose)
         self.data = data.copy()
-        self.log(f'GalaxySample: {n_objs=}, {keys=}')
+        self.log(f'HaloSample: {n_objs=}, {keys=}')
         
     def __getitem__(self, key: str | tuple[str, ...]):
         '''
-        Get the attribute of the galaxy sample.
+        Get the attribute of the halo sample.
         
         @key: key of the attribute.
         '''
@@ -60,7 +60,7 @@ class GalaxySample:
         
         @copy: if False, values are not guaranteed to be copied.
         '''
-        return GalaxySample({
+        return HaloSample({
             k: v[args] for k, v in self.data.items()    
         }, copy=copy, verbose=self.verbose)
         
@@ -94,7 +94,7 @@ class GalaxySample:
     def from_file(cls, path: Path | str, **init_kw):
         '''
         Create the sample from a file. The file should be in HDF5 format,
-        with datasets containing the galaxy attributes.
+        with datasets containing the halo attributes.
         
         @path: path to the file.
         @init_kw: additional keyword arguments passed to __init__().
