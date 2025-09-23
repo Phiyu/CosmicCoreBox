@@ -32,7 +32,7 @@ class HaloWebCross:
             n_xs = h_samp.n_objs
             ws = np.ones(n_xs) / n_xs
 
-        self.xs = h_samp['x_sim_cor']
+        self.xs = h_samp['position']
         self.ws = ws
         self.tf = tf
         self.rng = Rng(rng)

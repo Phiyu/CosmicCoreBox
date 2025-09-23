@@ -32,7 +32,7 @@ class TidalField(abc.HasLog):
     def from_file(cls, path: Path | str, recon_only=True, **init_kw):
         with h5.File(path) as f:
             lams, delta, n_grids, l_box = f.datasets[
-                'lam', 'delta_sm_x', 'n_grids', 'l_box']
+                'lams', 'delta_sm_x', 'n_grids', 'l_box']
             if recon_only:
                 recon_mask = f.datasets['reconstruction_mask']
             else:

@@ -3,9 +3,10 @@ from typing import Self
 import numpy as np
 from pathlib import Path
 import h5py
+from pyhipp.core import abc
 
 
-class HaloSample:
+class HaloSample(abc.HasLog, abc.HasDictRepr):
     
     repr_attr_keys = ('n_objs',)
     
