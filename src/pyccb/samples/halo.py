@@ -100,6 +100,6 @@ class HaloSample(abc.HasLog, abc.HasDictRepr):
         @path: path to the file.
         @init_kw: additional keyword arguments passed to __init__().
         '''
-        with h5py.File(path, 'r') as f:
+        with h5py.File(path, 'r', locking=False) as f:
             data = {k: f[k][:] for k in f.keys()}
         return cls(data, copy=False, **init_kw)

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from pyhipp.io import h5
+import h5py
 from pyhipp.core import abc
 from pyhipp.field.cubic_box import Mesh
 import numpy as np
@@ -30,7 +30,7 @@ class TidalField(abc.HasLog):
 
     @classmethod
     def from_file(cls, path: Path | str, recon_only=True, **init_kw):
-        with h5.File(path) as f:
+        with h5py.File(path, 'r', locking=False) as f:
             lams, delta, n_grids, l_box = f.datasets[
                 'lams', 'delta_sm_x', 'n_grids', 'l_box']
             if recon_only:
