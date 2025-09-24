@@ -1,5 +1,6 @@
 from __future__ import annotations
 import h5py
+from pyhipp.io import h5
 from pyhipp.core import abc
 from pyhipp.field.cubic_box import Mesh
 import numpy as np
@@ -31,12 +32,10 @@ class TidalField(abc.HasLog):
     @classmethod
     def from_file(cls, path: Path | str, recon_only=True, **init_kw):
         with h5py.File(path, 'r', locking=False) as f:
-            lams = f['lams']
-            delta = f['delta_sm_x']
-            n_grids = f['n_grids']
-            l_box = f['l_box']
+            lams, delta, n_grids, l_box = tuple(f[key][()] for key in [
+                'lams', 'delta_sm_x', 'n_grids', 'l_box'])
             if recon_only:
-                recon_mask = f['reconstruction_mask']
+                recon_mask = f['reconstruction_mask'][()]
             else:
                 recon_mask = None
             mesh = Mesh.new(n_grids, l_box)
@@ -90,3 +89,11 @@ class TidalField(abc.HasLog):
         mask = (self.lams >= self.lam_off).sum(-1) == n_lam
         mask &= self.recon_mask
         return mask
+    
+    def __getitem__(self, key: str | tuple[str, ...]):
+        '''
+        Get the attribute of the field sample.
+
+        @key: key of the attribute.
+        '''
+        return self.data[key]
