@@ -31,10 +31,12 @@ class TidalField(abc.HasLog):
     @classmethod
     def from_file(cls, path: Path | str, recon_only=True, **init_kw):
         with h5py.File(path, 'r', locking=False) as f:
-            lams, delta, n_grids, l_box = f.datasets[
-                'lams', 'delta_sm_x', 'n_grids', 'l_box']
+            lams = f['lams']
+            delta = f['delta_sm_x']
+            n_grids = f['n_grids']
+            l_box = f['l_box']
             if recon_only:
-                recon_mask = f.datasets['reconstruction_mask']
+                recon_mask = f['reconstruction_mask']
             else:
                 recon_mask = None
             mesh = Mesh.new(n_grids, l_box)
